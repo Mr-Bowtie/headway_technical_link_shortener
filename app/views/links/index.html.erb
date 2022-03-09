@@ -1,8 +1,19 @@
 <p style="color: green"><%= notice %></p>
+<% if flash[:alert] %> 
+  <p style="color: red"><%= alert %></p>
+<% end %>
+
 
 <%= form_with model: @link, :method => "post" do |f| %>
   <%= f.text_field :url %>
   <%= f.text_field :slug %>
+  <% if @link.errors.any? %>
+    <ul>
+      <% @link.errors.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
   <%= f.submit "generate shortened Link" %>
 <% end %>
 

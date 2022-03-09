@@ -30,6 +30,7 @@ class LinksController < ApplicationController
         format.html { redirect_back_or_to links_url, notice: 'Link was successfully created.' }
         format.json { render :show, status: :created, location: @link }
       else
+        flash.now[:alert] = 'That short link already exists'
         format.html { render index, status: :unprocessable_entity }
         format.json { render json: @link.errors, status: :unprocessable_entity }
       end
@@ -43,6 +44,7 @@ class LinksController < ApplicationController
         format.html { redirect_to link_url(@link), notice: 'Link was successfully updated.' }
         format.json { render :show, status: :ok, location: @link }
       else
+        flash.now[:alert] = 'shortened link alread exists'
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @link.errors, status: :unprocessable_entity }
       end
