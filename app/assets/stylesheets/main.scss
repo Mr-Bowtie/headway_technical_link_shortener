@@ -3,3 +3,10 @@
 p {
     text-align: center;
 }
+
+.title  {
+    margin-top: 3em;
+    @include mobile {
+        text-align: center;
+    }
+}
