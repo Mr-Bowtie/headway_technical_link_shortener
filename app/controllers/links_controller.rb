@@ -3,7 +3,7 @@ class LinksController < ApplicationController
 
   # GET /links or /links.json
   def index
-    @link = Link.new
+    # @link = Link.new
     @links = Link.all
   end
 
@@ -24,14 +24,15 @@ class LinksController < ApplicationController
   def create
     @link = Link.new(link_params)
     @link.slug = @link.generate_slug if params['link']['slug'].empty?
+    @links = Link.all
 
     respond_to do |format|
       if @link.save
         format.html { redirect_back_or_to links_url, notice: 'Link was successfully created.' }
         format.json { render :show, status: :created, location: @link }
       else
+        format.html { render :index, status: :unprocessable_entity }
         flash.now[:alert] = 'That short link already exists'
-        format.html { render index, status: :unprocessable_entity }
         format.json { render json: @link.errors, status: :unprocessable_entity }
       end
     end
