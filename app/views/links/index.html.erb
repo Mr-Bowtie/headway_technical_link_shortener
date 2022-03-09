@@ -1,25 +1,40 @@
-<div class="columns is-centered is-vcentered">
-  <div class="column is-two-thirds ">
-    <section id='form' class='section is-flex is-justify-content-center'>
-        <p style="color: green"><%= notice %></p>
-        <% if flash[:alert] %> j
-          <p style="color: red"><%= alert %></p>
-        <% end %>
+<div class='container is-max-widescreen'>
+  <div class="columns is-centered is-vcentered">
+    <div class="column is-two-thirds ">
+      <h1 class="title">Headway Link Shortener</h1>
+      <% if flash[:notice] %>
+        <p class="notification is-success"><%= notice %></p>
+      <% end %>
+      <% if flash[:alert] %>
+        <p class="notification is-error"><%= alert %></p>
+      <% end %>
+      <section id='form' class='section is-flex is-justify-content-center has-background-grey-lighter'>
 
-        <%= form_with model: @link, :method => "post" do |f| %>
-          <div class="field is-grouped">
-            <div class="control">
-              <%= f.text_field :url %>
+        <%= form_with url: '/links', :method => "post" do |f| %>
+          <div class="columns is-vcentered">
+            <div class="column is-one-third">
+              <div class="field">
+                <div class="control">
+                  <%= f.text_field "link[url]", placeholder: "URL to shorten" %>
+                </div>
+              </div>
             </div>
-            <div class="control">
-              <%= f.text_field :slug %>
-              <p class="error"><%= show_errors(@link, :slug) %></p>
+            <div class="column is-one-third">
+              <div class="field is-grouped">
+                <div class="control">
+                  <%= f.text_field "link[slug]", placeholder: "Custom slug" %>
+                </div>
+              </div>
             </div>
-            <%= f.submit "generate shortened Link", class: "button is-info" %>
+            <div class='column is-one-third'>
+              <div>
+                <%= f.submit "generate shortened Link", class: "button is-info" %>
+              </div>
+            </div>
           </div>
         <% end %>
-      </div>
-    </section>
+      </section>
+    </div>
   </div>
 
   <div class="columns is-centered">
@@ -33,5 +48,4 @@
       </section>
     </div>
   </div>
-
 </div>
